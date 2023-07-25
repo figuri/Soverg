@@ -8,4 +8,5 @@ const Square = shapes.Square;
 // const { Triangle, Circle, Square } = require('./lib/shapes.js');
 // 1. create an array prompt for the user input(shape, text, colors; as object)
 // 2. create the svg
-        // 2.1 write the file
+        // 2.1 write the file 
+        
