@@ -48,6 +48,9 @@ const questions = [
 function init() {
   inquirer.prompt(questions).then((answers) => {
     // inquirer returns the answers as an object
+    const textColor = convertToCssColor(answers.textColor);
+    const fillColor = convertToCssColor(answers.fillColor);
+//     validate that the user input is a valid color
     const svg = createSvg(
       answers.text,
       answers.textColor,
@@ -66,6 +69,31 @@ function init() {
     });
   });
 }
+function convertToCssColor(colorInput) {
+  // If the input is a color keyword, return it as is
+  if (isColorKeyword(colorInput)) {
+    return colorInput;
+  }
+
+  // If the input is a hexadecimal color, convert it to RGB and then to CSS format
+  if (isHexadecimalColor(colorInput)) {
+    const rgb = colorConvert.hex.rgb(colorInput);
+    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+  }
+
+  // Return black as the default color if the input is invalid
+  return "black";
+}
+function isColorKeyword(colorInput) {
+        const colorKeywords = ["red", "blue", "green", "yellow", "purple", "orange", "black", "white"];
+        return colorKeywords.includes(colorInput.toLowerCase());
+}
+// above the isColorKeyword function is used to validate the user input
+function isHexadecimalColor(colorInput) {
+        return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(colorInput);
+        // the code after return is a regular expression, it is used to validate the user input is a hexadecimal color
+}
+// above the isHexadecimalColor function is used to validate the user input
 // function to make the svg
 function createSvg(shape, text, textColor, fillColor) {
   // above we are passing in the user input as arguments
