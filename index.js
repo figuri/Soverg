@@ -16,10 +16,9 @@ const { Triangle, Circle, Square } = require("./lib/shapes.js");
 // each object in the array is a question that will be asked
 const questions = [
   {
-    type: "list",
-    name: "shape",
-    message: "What shape would you like to draw?",
-    choices: ["Triangle", "Circle", "Square"],
+    type: "input",
+    name: "text",
+    message: "what text would you like to add?",
   },
   {
     type: "input",
@@ -27,14 +26,16 @@ const questions = [
     message: "what color would you like the text to be?",
   },
   {
+    type: "list",
+    name: "shape",
+    message: "What shape would you like to draw?",
+    choices: ["Triangle", "Circle", "Square"],
+  },
+
+  {
     type: "input",
     name: "fillColor",
     message: "what color would you like the shape to be?",
-  },
-  {
-    type: "input",
-    name: "text",
-    message: "what text would you like to add?",
   },
 ];
 // init function to prompt the user for input and create the svg
@@ -59,7 +60,6 @@ function init() {
 }
 init();
 //^ call the init function to start the program
-
 // function to make the svg
 function createSvg(shape, text, textColor, fillColor) {
   // above we imported the classes from shapes.js
