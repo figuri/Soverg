@@ -1,10 +1,6 @@
 // 0. import node modules by defining variables with require
-const shapes = require("./lib/shapes.js");
 const fs = require("fs");
 const inquirer = require("inquirer");
-
-const {exec} = require("child_process");
-// the above varuable is used to execute a command in the terminal, in this case, the command is used to open the logo.svg file in the browser
 
 // 0.1 import shapes.js
 const { Triangle, Circle, Square } = require("./lib/shapes.js");
@@ -23,6 +19,12 @@ const questions = [
     type: "input",
     name: "text",
     message: "what text would you like to add?",
+    validate: function (input) {
+      if (input.length <= 3) {
+        return true;
+      }
+      return "Please enter up to 3 characters";
+    },
   },
   {
     type: "input",
@@ -58,46 +60,61 @@ function init() {
     fs.writeFile("logo.svg", svg, (err) => {
       if (err) throw err;
       console.log("Generated logo.svg");
+      openInBrowser("logo.svg");
       // if there is no error, log that the file has been saved
+      // and call the openInBrowser function with the file name as an argument, this will open the file in the browser
     });
   });
 }
-init();
-//^ call the init function to start the program
 // function to make the svg
 function createSvg(shape, text, textColor, fillColor) {
   // above we are passing in the user input as arguments
   let svg = "";
   let shapeStyle = `fill: ${fillColor};`;
   let textStyle = `fill: ${textColor};`;
-//   we "let" the variables above so we can change them later, if we used "const" we would not be able to change them
-// shapeStyle and textStyle are used to define the style attribute in the svg
+  // we "let" the variables above so we can change them later, if we used "const" we would not be able to change them
+  // shapeStyle and textStyle are used to define the style attribute in the svg
   // we need to create an instance of the class based on the user input
   // we make a new instance of the class and pass in the user input
+  // we use a switch statement to create an instance of the class based on the user input shape which is called as an argument in the function
   // break out of the switch statement and make another instance
   // based on the user input, create an instance of the class
-//   we add the text, textColor and shapeColor to the constructor
-// then in the backticks, we add the text, textColor and shapeColor to the style attribute
+  // we add the text, textColor and shapeColor to the constructor
+  // then in the backticks, we add the text, textColor and shapeColor to the style attribute
   switch (shape) {
     case "Triangle":
       svg = `<svg width="300" height="200">
       <polygon points="150,0 300,200 0,200" style"${shapeStyle}"/>
       <text x="120" y="150" font-size="35" fill="${textStyle}">${text}</text>
-      </svg>`
+      </svg>`;
       break;
-//       we use the backticks to define the svg
-//      we use the ${} to add the variables to the svg, these variables are defined above as the user input
+    // we use the backticks to define the svg
+    // we use the ${} to add the variables to the svg, these variables are defined above as the user input
     case "Circle":
       svg = `<svg width="300" height="200">
         <circle cx="150" cy="100" r="100" style"${shapeStyle}"/>
         <text x="130" y="110" font-size="35" fill="${textStyle}">${text}</text>
-        </svg>`
+        </svg>`;
       break;
     case "Square":
       svg = `<svg width="300" height="200">
         <rect width="300" height="200" style"${shapeStyle}"/>
-        <text x="110" y="160" font-size="35" fill="${textStyle}">${text}</text>`
+        <text x="110" y="160" font-size="35" fill="${textStyle}">${text}</text>`;
       break;
   }
-  return svg.render();
+  return svg;
 }
+// function to open the file in the browser
+function openInBrowser(filename) {
+  // exec is a node module that allows us to execute a command in the terminal
+  // in this case, we are opening the file in the browser
+  const { exec } = require("child_process");
+  // the above variable is used to execute a command in the terminal, in this case, the command is used to open the logo.svg file in the browser
+  exec(`start ${filename}`, (err, stdout, stderr) => {
+    if (err) {
+      console.error(`Error opening file: ${error.message}`);
+    }
+  });
+}
+init();
+//^ call the init function to start the program
