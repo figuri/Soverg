@@ -6,6 +6,9 @@ const { Triangle, Circle, Square } = require("./lib/shapes.js");
 
 // make a questions array for inquirer to prompt the user
 // each object in the array is a question that will be asked
+// we add the validate method (methods are properties within an onject defined with a value of a function) 
+// this is to make sure the user enters no more than 3 characters
+// if the user enters more than 3 characters, the validate method will return a string that tells the user to enter up to 3 characters
 const questions = [
   {
     type: "input",
@@ -60,6 +63,14 @@ function init() {
 }
 
 // function to make the svg
+// this function takes in the shapeType, text, textColor and fillColor as arguments
+// we define svg as an empty string with the let keyword so we can change it later
+// we define shapeStyle and textStyle as fill:${} so we can change the color of the shape and text later, with let keyword for template literals
+// we use a switch statement to check the shapeType
+// if the shapeType is "Triangle", we set the svg variable to a string that contains the svg for a triangle
+// we use the ${} to insert the variables into the string
+// we use the return keyword to return the svg string
+// we do the same for the other shapes
 function createSvg(shapeType, text, textColor, fillColor) {
   let svg = "";
   let shapeStyle = `fill: ${fillColor};`;
@@ -89,6 +100,13 @@ function createSvg(shapeType, text, textColor, fillColor) {
 }
 
 // function to open the file in the browser
+// this function takes in the filename as an argument
+// we use the exec method from the child_process module to open the file in the browser
+// exec takes in two arguments
+// 1. the command to run
+// 2. a callback function that contains the error, stdout and stderr
+// if there is an error, we log the error
+// if there is no error, we log that the file is opening in the browser
 function openInBrowser(filename) {
   const { exec } = require("child_process");
   exec(`start ${filename}`, (err, stdout, stderr) => {
