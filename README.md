@@ -41,7 +41,7 @@
 # SVG EXAMPLE IMAGE:
 <!-- link to the screenshot from the example directory -->
 
-![Alt text](<Screenshot (25).png>)
+![Alt text](<./example/Screenshot (25).png>)
   ## Questions
   For any questions or feedback, feel free to contact me through GitHub or email:
   - GitHub: [figuri](https://github.com/figuri)
