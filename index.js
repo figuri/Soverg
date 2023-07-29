@@ -6,7 +6,7 @@ const { Triangle, Circle, Square } = require("./lib/shapes.js");
 
 // make a questions array for inquirer to prompt the user
 // each object in the array is a question that will be asked
-// we add the validate method (methods are properties within an onject defined with a value of a function) 
+// we add the validate method (methods are properties within an onject defined with a value of a function)
 // this is to make sure the user enters no more than 3 characters
 // if the user enters more than 3 characters, the validate method will return a string that tells the user to enter up to 3 characters
 const questions = [
